@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\v1\ProductController;
 use App\Http\Controllers\Api\v1\UserController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/register-shop', [ShopController::class, 'store']);
+
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
-    Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
 Route::apiResource('products', ProductController::class)->middleware('auth:sanctum');
 Route::get('/product/search/{name}', [ProductController::class, 'search']);
 
