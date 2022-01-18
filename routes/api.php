@@ -21,8 +21,10 @@ Route::post('/register-shop', [ShopController::class, 'store']);
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
-Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
-Route::apiResource('products', ProductController::class)->middleware('auth:sanctum');
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::apiResource('products', ProductController::class);
+});
 Route::get('/product/search/{name}', [ProductController::class, 'search']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
