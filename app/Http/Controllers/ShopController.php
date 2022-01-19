@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Http\Requests\StoreShopRequest;
 use App\Http\Requests\UpdateShopRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class ShopController extends Controller
@@ -96,5 +97,13 @@ class ShopController extends Controller
     public function destroy(Shop $shop)
     {
         //
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->shop()->tokens()->delete();
+        return [
+            'message' => 'Logged out'
+        ];
     }
 }

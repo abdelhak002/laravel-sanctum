@@ -15,11 +15,13 @@ class UserController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed',
+            'company_id' => 'required|string',
         ]);
 
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
+            'company_id' => $fields['company_id'],
             'password' => bcrypt($fields['password']),
         ]);
 

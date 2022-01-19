@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\v1\ProductController;
 use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\ShopController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register-shop', [ShopController::class, 'store']);
 
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'login'])->middleware("is_valid");
+Route::get('/users', function(){
+    return User::all();
+})->middleware('is_valid');
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/logout', [UserController::class, 'logout']);
     Route::apiResource('products', ProductController::class);
